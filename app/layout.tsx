@@ -24,10 +24,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* <div className="flex h-screen flex-col">
+          <div className="h-16 flex-none">
+            <NavBar></NavBar>
+          </div>
+
+         
+        </div> */}
+
         {children}
       </body>
     </html>

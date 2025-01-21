@@ -2,26 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer components {
+  .btn-standard {
+    @apply inline-flex items-center gap-x-3 rounded-lg px-2 py-1 text-sm font-medium shadow-sm;
+  }
+  .btn_navigation {
+    @apply flex w-10 items-center justify-center rounded-md border border-blue-500 bg-blue-50 shadow-md hover:bg-blue-300 hover:text-black;
+  }
+  .btn_navigation_svg {
+    @apply h-5 w-5 self-center fill-gray-800;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  .collapse-title,
+  :where(.collapse > input[type="checkbox"]),
+  :where(.collapse > input[type="radio"]) {
+    min-height: 2.75rem;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #507bff;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0a2b8d;
 }
