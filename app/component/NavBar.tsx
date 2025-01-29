@@ -96,7 +96,7 @@ export default function NavBar() {
             <ul className="flex flex-row gap-3 rounded-lg font-medium">
               <li>
                 <Link
-                  href="/"
+                  href={`/allservices/allincidents`}
                   className="flex rounded p-1 text-white hover:bg-slate-300 hover:text-blue-700"
                   aria-current="page"
                 >

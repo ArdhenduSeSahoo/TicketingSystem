@@ -1,15 +1,16 @@
-import { call, put, select, takeLatest } from "redux-saga/effects";
+import { put, select, takeLatest } from "redux-saga/effects";
 import { GeneralSearch_fetchSearchData } from "../SagaActionKeys";
 
-import {
-  AxiosGraphQlPostCall,
-  hasResponseError,
-} from "@/lib/AxiosFiles/AxiosGraphQlCall";
 import { selectGeneralSearchData } from "@/lib/Redux/Selectors/CommonSelectors/GeneralRequestSelector";
 import {
   fetchCompleteGeneralSearchData,
   GeneralSearchModel,
 } from "@/lib/Redux/Slices/commonSlices/GeneralRequestSlice";
+import { ApiCall_GraphQl, hasGQResponseError } from "@/lib/api_call/ApiCall";
+import {
+  ApiResponsModel,
+  ApiResponsErrorModel,
+} from "@/lib/Models/ApiResponsModel";
 
 function* fetchGeneralSearchData() {
   const generalSearchDataSelector: GeneralSearchModel = yield select(
@@ -17,16 +18,20 @@ function* fetchGeneralSearchData() {
   );
 
   if (generalSearchDataSelector.searchString !== "") {
-    const { response } = yield call(
-      AxiosGraphQlPostCall,
-      generalSearchDataSelector.searchString,
-    );
-    const errorMessage = hasResponseError(response);
+    // const { response } = yield call(
+    //   AxiosGraphQlPostCall,
+    //   generalSearchDataSelector.searchString,
+    // );
+    console.log("General fetchs");
 
+    const response: ApiResponsModel | ApiResponsErrorModel =
+      yield ApiCall_GraphQl(generalSearchDataSelector.searchString);
+    const errorMessage = hasGQResponseError(response);
+    //console.log(response);
     if (errorMessage === "") {
-      const general_SearchData = response?.data;
+      const general_SearchData = (response as ApiResponsModel)?.data;
 
-      //console.log(allDataList);
+      console.log(general_SearchData);
       yield put(
         fetchCompleteGeneralSearchData({
           errorMessage: "",

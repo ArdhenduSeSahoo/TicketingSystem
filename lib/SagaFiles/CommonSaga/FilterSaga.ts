@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from "redux-saga/effects";
+import { put, select, takeLatest } from "redux-saga/effects";
 import { FilterDataFieldDDW_fetchFilterDataField } from "../SagaActionKeys";
 
 import {
@@ -7,16 +7,18 @@ import {
   IFilterDataFetchDDW,
   IFilterDataFetchList,
 } from "@/lib/Redux/Slices/commonSlices/FilterDataFieldDdwSlice";
-import {
-  AxiosGraphQlPostCall,
-  hasResponseError,
-} from "../../AxiosFiles/AxiosGraphQlCall";
+
 import {
   GQueryTemplate,
   GQueryTemplate_AllQuery,
 } from "@/lib/DefaultData/commonData/QueryTemplet";
 import { FilterDataFieldInput } from "@/lib/Models/FilterModels/FilterModels";
 import { selectFilterDataFieldDdw } from "@/lib/Redux/Selectors/CommonSelectors/FilterSelectors";
+import { ApiCall_GraphQl, hasGQResponseError } from "@/lib/api_call/ApiCall";
+import {
+  ApiResponsErrorModel,
+  ApiResponsModel,
+} from "@/lib/Models/ApiResponsModel";
 
 function* fetchDataFieldData() {
   const SelectFilterDataFieldDdw: IFilterDataFetchList = yield select(
@@ -48,13 +50,15 @@ function* fetchDataFieldData() {
           GQueryTemplate_AllQuery,
           query_PartOfFilter,
         );
-        //console.log(full_query);
-        const { response } = yield call(AxiosGraphQlPostCall, full_query);
-        //console.log(response);
-        const getErrorMessage = hasResponseError(response);
+
+        const response: ApiResponsModel | ApiResponsErrorModel =
+          yield ApiCall_GraphQl(full_query);
+        // console.log(response);
+
+        const getErrorMessage: string = hasGQResponseError(response);
         if (getErrorMessage.length === 0) {
           //FilterDataFieldInput
-          const alldatas = response?.data?.data?.filterTable
+          const alldatas = (response as ApiResponsModel)?.data?.filterTable
             ?.items as FilterDataFieldInput[];
           const objectofarray: IFilterDataFetchDDW = {
             filterColumnValue: filterDataFieldDdw.requestedFilterUIDataToFetch!,

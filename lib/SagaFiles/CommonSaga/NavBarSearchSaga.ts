@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from "redux-saga/effects";
+import { put, select, takeLatest } from "redux-saga/effects";
 import { NavBarSearch_fetchSearchData } from "../SagaActionKeys";
 import { selectNavBarSearchData } from "@/lib/Redux/Selectors/CommonSelectors/NavBarSelector";
 import {
@@ -6,10 +6,12 @@ import {
   NavBarSearchModel,
   SearchDataModel,
 } from "@/lib/Redux/Slices/commonSlices/NavBarSearchSlice";
+
+import { ApiCall_GraphQl, hasGQResponseError } from "@/lib/api_call/ApiCall";
 import {
-  AxiosGraphQlPostCall,
-  hasResponseError,
-} from "@/lib/AxiosFiles/AxiosGraphQlCall";
+  ApiResponsErrorModel,
+  ApiResponsModel,
+} from "@/lib/Models/ApiResponsModel";
 
 function* fetchSearchData() {
   const navSearchData: NavBarSearchModel = yield select(selectNavBarSearchData);
@@ -71,15 +73,17 @@ function* fetchSearchData() {
   }
 }`;
   if (navSearchData.searchString !== "") {
-    const { response } = yield call(AxiosGraphQlPostCall, queryg1);
-    const errorMessage = hasResponseError(response);
-
+    // const { response } = yield call(AxiosGraphQlPostCall, queryg1);
+    // const errorMessage = hasResponseError(response);
+    const response: ApiResponsModel | ApiResponsErrorModel =
+      yield ApiCall_GraphQl(queryg1);
+    const errorMessage = hasGQResponseError(response);
     if (errorMessage === "") {
       const allDataList: SearchDataModel[] = [];
-      const requestData = response?.data?.data?.customFilterRequest
-        .items as object[];
-      const incidentData = response?.data?.data?.customFilterIncident
-        .items as object[];
+      const requestData = (response as ApiResponsModel)?.data
+        ?.customFilterRequest.items as object[];
+      const incidentData = (response as ApiResponsModel)?.data
+        ?.customFilterIncident.items as object[];
       //console.log(incidentData);
       incidentData.forEach((element) => {
         allDataList.push({

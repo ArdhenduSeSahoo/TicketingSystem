@@ -48,10 +48,33 @@ export const AxiosGraphQlPostCall = async (query: string) => {
   // } catch (error) {
   //   console.log(error);
   // }
-  return await graphQlAxios
-    .post("", { query: query })
-    .then((response) => ({ response }))
+
+  await fetch("http://192.168.0.79/ESNOW/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+
+    body: JSON.stringify({ query: query }),
+  })
+    .then((res) => res.json())
+    .then((res) => console.log(res.data));
+  return await fetch("http://192.168.0.79/ESNOW/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({ query: query }),
+  })
+    .then((res) => res.json())
     .catch((error) => ({ error }));
+
+  // return await graphQlAxios
+  //   .post("", { query: query })
+  //   .then((response) => ({ response }))
+  //   .catch((error) => ({ error }));
 };
 
 export const Api_PostCall = async (Endpoint: string, query: string) => {

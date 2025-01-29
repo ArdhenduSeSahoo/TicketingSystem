@@ -1,4 +1,4 @@
-import { call, takeLatest, select, put } from "redux-saga/effects";
+import { takeLatest, select, put } from "redux-saga/effects";
 import {
   IncidentTableData_fetchIncidentTableData,
   IncidentTableData_fetchIncNextPageData,
@@ -13,10 +13,6 @@ import {
   TableDataFetchModels,
   AllColumnListModel,
 } from "@/lib/Models/IncidentListModel";
-import {
-  AxiosGraphQlPostCall,
-  hasResponseError,
-} from "../../AxiosFiles/AxiosGraphQlCall";
 import {
   incidentQueryTemplate,
   PlaceholderAllColumn,
@@ -35,6 +31,11 @@ import { RequestsDefaultColumnConfig } from "@/lib/DefaultData/Requests/RequestD
 import { selectRequestTableData } from "@/lib/Redux/Selectors/Requests/RequestPageSelector";
 import { fetchCompleteRequestTableData } from "@/lib/Redux/Slices/RequestPage/RequestTableDataSlice";
 import { selectColumnListData } from "@/lib/Redux/Selectors/CommonSelectors/ColumnListDataSelector";
+import { ApiCall_GraphQl, hasGQResponseError } from "@/lib/api_call/ApiCall";
+import {
+  ApiResponsErrorModel,
+  ApiResponsModel,
+} from "@/lib/Models/ApiResponsModel";
 
 function* fetchIncDataResolver() {
   yield fetchTableDataResolver({
@@ -167,12 +168,16 @@ function* fetchTableDataResolver(parm: {
     }
     //console.log(gQuery);
     try {
-      const { response } = yield call(AxiosGraphQlPostCall, gQuery);
-      const getErrorMessage = hasResponseError(response);
+      const response: ApiResponsModel | ApiResponsErrorModel =
+        yield ApiCall_GraphQl(gQuery); //call(AxiosGraphQlPostCall, gQuery);
+      //console.log(response);
+      //console.log(response.data.incidents);
+
+      const getErrorMessage = hasGQResponseError(response);
       if (getErrorMessage.length === 0) {
         if (req_data_for === PageDataType.IncidentData) {
-          const incidentData = response?.data?.data
-            ?.incidents as TableDataFetchModels;
+          const incidentData = (response as ApiResponsModel)?.data
+            .incidents as TableDataFetchModels;
           incidentDataList.dataList = incidentData;
           incidentDataList.errorFound = false;
           incidentDataList.errorMessage = "";
@@ -182,8 +187,8 @@ function* fetchTableDataResolver(parm: {
 
           yield put(fetchCompleteIncidentTableData(incidentDataList));
         } else {
-          const requestData = response?.data?.data
-            ?.request as TableDataFetchModels;
+          const requestData = (response as ApiResponsModel)?.data
+            .request as TableDataFetchModels;
           requestDataList.dataList = requestData;
           requestDataList.errorFound = false;
           requestDataList.errorMessage = "";

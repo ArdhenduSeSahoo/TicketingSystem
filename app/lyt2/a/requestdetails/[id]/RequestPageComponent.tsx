@@ -32,8 +32,9 @@ export default function RequestPageComponent(
       //setfirstFetchdata(geenralSearchSelector.searchData?.data?.request);
       //firstFetchDataObj = generalSearchSelector.searchData?.data?.request;
       //console.log(generalSearchSelector.searchData?.data?.request);
-      if (generalSearchSelector.searchData?.data?.request.items.length > 0) {
-        setfirstFetchdata(generalSearchSelector.searchData?.data?.request);
+      if (generalSearchSelector.searchData?.request.items.length > 0) {
+        //console.log(generalSearchSelector.searchData?.request);
+        setfirstFetchdata(generalSearchSelector.searchData?.request);
         setfirstFetchcount(1);
       }
 

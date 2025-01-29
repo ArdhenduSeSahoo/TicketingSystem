@@ -5,16 +5,15 @@ import {
 } from "../SagaActionKeys";
 
 import {
-  AxiosGraphQlPostCall,
-  hasResponseError,
-} from "@/lib/AxiosFiles/AxiosGraphQlCall";
-import {
   fetchCompleteGlobalSearchData,
 } from "@/lib/Redux/Slices/globlaSearchSlice/globalSearchSlices";
 import { selectGlobalSearchData } from "@/lib/Redux/Selectors/globalSearch/globalSearchSelector";
 import { GlobalSearchDataModel, GlobalSearchModel } from "@/lib/Models/GlobalSearchModels";
-
-interface incidentDataModel {}
+import {
+  ApiResponsErrorModel,
+  ApiResponsModel,
+} from "@/lib/Models/ApiResponsModel";
+import { ApiCall_GraphQl, hasGQResponseError } from "@/lib/api_call/ApiCall";
 
 function* fetchSearchData() {
   const globalSearchData: GlobalSearchModel = yield select(
@@ -41,16 +40,20 @@ function* fetchSearchData() {
   }
 }`;
   if (globalSearchData.searchString !== "") {
-    const { response } = yield call(AxiosGraphQlPostCall, queryg);
-    const errorMessage = hasResponseError(response);
-
+    // const { response } = yield call(AxiosGraphQlPostCall, queryg);
+    // const errorMessage = hasResponseError(response);
+    //console.log("Fetch api");
+    const response: ApiResponsModel | ApiResponsErrorModel =
+      yield ApiCall_GraphQl(queryg);
+    //console.log(response);
+    const errorMessage: string = hasGQResponseError(response);
     if (errorMessage === "") {
       //console.log(response);
       const allDataList: GlobalSearchDataModel[] = [];
-      const requestData = response?.data?.data?.customFilterRequest
-        .items as object[];
-      const incidentData = response?.data?.data?.customFilterIncident
-        .items as object[];
+      const requestData = (response as ApiResponsModel)?.data
+        .customFilterRequest.items as object[];
+      const incidentData = (response as ApiResponsModel)?.data
+        .customFilterIncident.items as object[];
       //console.log(incidentData);
       incidentData.forEach((element) => {
         allDataList.push({
