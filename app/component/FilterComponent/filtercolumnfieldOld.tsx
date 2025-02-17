@@ -1,9 +1,6 @@
 import * as React from "react";
-import MainDropDownItem from "./MainDropDownItem";
 
-export interface IcolumnFielsOldProps {}
-
-export default function columnFielsOld(props: IcolumnFielsOldProps) {
+export default function columnFielsOld() {
   return (
     <div>
       <div className="hs-dropdown relative [--auto-close:inside] sm:mt-1 sm:inline-flex">
@@ -49,9 +46,7 @@ export default function columnFielsOld(props: IcolumnFielsOldProps) {
             </div>
           </div>
           <div className="mt-1 h-96 overflow-x-auto">
-            <ul className="flex flex-col">
-              
-            </ul>
+            <ul className="flex flex-col"></ul>
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ export default function NavBar() {
       <nav className="rounded-md border-gray-200 bg-gray-900">
         <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between rounded-md p-2">
           <a
-            href="#"
+            href="/lyt2/dashboard"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             {/* <img
@@ -27,9 +27,9 @@ export default function NavBar() {
               />
             </div>
 
-            {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-              ESSPL SNOW
-            </span> */}
+            <span className="self-center whitespace-nowrap text-lg font-semibold text-white">
+              Support Hub
+            </span>
           </a>
           <div className="flex gap-2 md:order-2">
             <div>
@@ -100,7 +100,7 @@ export default function NavBar() {
                   className="flex rounded p-1 text-white hover:bg-slate-300 hover:text-blue-700"
                   aria-current="page"
                 >
-                  <p className="">Incident</p>
+                  <p className="">Incidents</p>
                 </Link>
               </li>
               <li>
@@ -116,7 +116,7 @@ export default function NavBar() {
                   href={`/lyt2/gs/globalsearch`}
                   className="flex rounded p-1 text-white hover:bg-slate-300 hover:text-blue-700"
                 >
-                  SearchAll
+                  Global Search
                 </Link>
               </li>
               <li>
@@ -124,7 +124,7 @@ export default function NavBar() {
                   href={`/lyt2/gs/botsearch`}
                   className="flex rounded p-1 text-white hover:bg-slate-300 hover:text-blue-700"
                 >
-                  BotSearch
+                  BOT Search
                 </Link>
               </li>
             </ul>

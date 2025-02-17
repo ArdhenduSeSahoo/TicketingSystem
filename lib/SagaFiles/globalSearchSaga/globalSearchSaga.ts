@@ -1,14 +1,14 @@
-import { call, put, select, takeLatest } from "redux-saga/effects";
-import {
-  GeneralSearch_fetchSearchData,
-  GlobalSearch_fetchGlobalSearchData,
-} from "../SagaActionKeys";
+import { put, select, takeLatest } from "redux-saga/effects";
+import { GlobalSearch_fetchGlobalSearchData } from "../SagaActionKeys";
 
-import {
-  fetchCompleteGlobalSearchData,
-} from "@/lib/Redux/Slices/globlaSearchSlice/globalSearchSlices";
+import { fetchCompleteGlobalSearchData } from "@/lib/Redux/Slices/globlaSearchSlice/globalSearchSlices";
 import { selectGlobalSearchData } from "@/lib/Redux/Selectors/globalSearch/globalSearchSelector";
-import { GlobalSearchDataModel, GlobalSearchModel } from "@/lib/Models/GlobalSearchModels";
+import {
+  api_respons_incident,
+  api_respons_request,
+  GlobalSearchDataModel,
+  GlobalSearchModel,
+} from "@/lib/Models/GlobalSearchModels";
 import {
   ApiResponsErrorModel,
   ApiResponsModel,
@@ -51,9 +51,9 @@ function* fetchSearchData() {
       //console.log(response);
       const allDataList: GlobalSearchDataModel[] = [];
       const requestData = (response as ApiResponsModel)?.data
-        .customFilterRequest.items as object[];
+        .customFilterRequest.items as api_respons_request[];
       const incidentData = (response as ApiResponsModel)?.data
-        .customFilterIncident.items as object[];
+        .customFilterIncident.items as api_respons_incident[];
       //console.log(incidentData);
       incidentData.forEach((element) => {
         allDataList.push({

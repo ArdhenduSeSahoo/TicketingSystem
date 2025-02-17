@@ -1,10 +1,12 @@
-import { call, put, select, takeLatest } from "redux-saga/effects";
-import { BotResultData_fetchDataFromQuery, BotResultData_fetchingBotGlobalSearch } from "../SagaActionKeys";
+import { put, select, takeLatest } from "redux-saga/effects";
+import { BotResultData_fetchDataFromQuery } from "../SagaActionKeys";
 import { selectBotResultData } from "@/lib/Redux/Selectors/BotSearchSelectors/BotSearchSelectors";
 
-import { Api_PostCall } from "@/lib/AxiosFiles/AxiosGraphQlCall";
 import { EndPoint_Azure_Prediction } from "@/lib/DefaultData/BaseURLs";
-import { BotQueryResultData, BotResultDataResponsModel } from "@/lib/Models/BotModels/BotModels";
+import {
+  BotQueryResultData,
+  BotResultDataResponsModel,
+} from "@/lib/Models/BotModels/BotModels";
 import { fetchDataFromQueryComplete } from "@/lib/Redux/Slices/BotSearchSlices/BotResultSlice";
 import { fetchBotGlobalSearchData } from "@/lib/Redux/Slices/BotSearchSlices/BotListDataSlice";
 import { ApiCall_Post } from "@/lib/api_call/ApiCall";
@@ -28,7 +30,7 @@ function* fetchBotResultFromQuery() {
       EndPoint_Azure_Prediction,
       request_body,
     );
-
+    console.log(response);
     const botrespons: BotResultDataResponsModel =
       response as BotResultDataResponsModel;
     console.log(botrespons);
@@ -60,7 +62,6 @@ function* fetchBotResultFromQuery() {
     console.log(error);
   }
 }
-
 
 export function* fetchBotResultFromQueryWatcher() {
   yield takeLatest(BotResultData_fetchDataFromQuery, fetchBotResultFromQuery);

@@ -9,13 +9,13 @@ export default function SearchResult() {
   //console.log(globalSearchDataSelector.searchData);
   let showPanel = true; //globalSearchDataSelector.searchString !== "";
   let totalItemSearch: number = 0;
-  const isLoading =
-    globalSearchDataSelector.isLoading &&
-    globalSearchDataSelector.searchString !== "" &&
-    globalSearchDataSelector.errorMessage === "";
-  const hasError =
-    !globalSearchDataSelector.isLoading &&
-    globalSearchDataSelector.errorMessage !== "";
+  // const isLoading =
+  //   globalSearchDataSelector.isLoading &&
+  //   globalSearchDataSelector.searchString !== "" &&
+  //   globalSearchDataSelector.errorMessage === "";
+  // const hasError =
+  //   !globalSearchDataSelector.isLoading &&
+  //   globalSearchDataSelector.errorMessage !== "";
   let noDataFound = false;
   let dataItems: JSX.Element[] = [];
   if (Array.isArray(globalSearchDataSelector.searchData)) {

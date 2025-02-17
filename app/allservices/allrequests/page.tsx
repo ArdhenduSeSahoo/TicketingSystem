@@ -8,31 +8,31 @@ import { PageDataType } from "@/lib/DefaultData/PageDataType";
 
 export default function AllRequest() {
   const typeOfFilter = PageDataType.RequestData;
-  const design1 = (
-    <div>
-      <MainStoreProvider>
-        <InitDataLoading filterType={typeOfFilter} />
-        <div className="fixed inset-0 top-[3.8125rem] z-20 block overflow-y-auto">
-          <div className="relative">
-            <div className="top-0">
-              <div className="relative bg-white">
-                <div className="flex-shrink">
-                  <FilterPanelInitDataLoader filterType={typeOfFilter} />
-                  <FilterPanel typeOfFilter={typeOfFilter} />
-                </div>
-              </div>
-            </div>
-            <IncidentTable pageDataType={typeOfFilter} />
-            <div className="sticky bottom-0 bg-slate-200">
-              <div className="flex flex-none justify-center">
-                <TablePagingComponent pageDataType={typeOfFilter} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </MainStoreProvider>
-    </div>
-  );
+  // const design1 = (
+  //   <div>
+  //     <MainStoreProvider>
+  //       <InitDataLoading filterType={typeOfFilter} />
+  //       <div className="fixed inset-0 top-[3.8125rem] z-20 block overflow-y-auto">
+  //         <div className="relative">
+  //           <div className="top-0">
+  //             <div className="relative bg-white">
+  //               <div className="flex-shrink">
+  //                 <FilterPanelInitDataLoader filterType={typeOfFilter} />
+  //                 <FilterPanel typeOfFilter={typeOfFilter} />
+  //               </div>
+  //             </div>
+  //           </div>
+  //           <IncidentTable pageDataType={typeOfFilter} />
+  //           <div className="sticky bottom-0 bg-slate-200">
+  //             <div className="flex flex-none justify-center">
+  //               <TablePagingComponent pageDataType={typeOfFilter} />
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </MainStoreProvider>
+  //   </div>
+  // );
   const design2 = (
     <>
       <>

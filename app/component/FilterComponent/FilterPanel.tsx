@@ -5,13 +5,10 @@ import { useAppDispatch, useAppSelector } from "@/lib/Redux/Hooks/HomePageHook";
 
 import { setFinalFilterData } from "@/lib/Redux/Slices/commonSlices/FilterFinalQuerySlice";
 import { addBlankFilter } from "@/lib/Redux/Slices/commonSlices/FilterUIDataSlice";
-import { useState } from "react";
+
 import { fetchIncidentTableData } from "@/lib/Redux/Slices/MainPage/IncidentTableDataSlice";
 import ModalTableConfig from "../TableConfigComponent/modalHeadless";
-import {
-  selectFilterFinalDataQuery,
-  selectFilterUIDataAll,
-} from "@/lib/Redux/Selectors/CommonSelectors/FilterSelectors";
+import { selectFilterUIDataAll } from "@/lib/Redux/Selectors/CommonSelectors/FilterSelectors";
 import { PageDataType } from "@/lib/DefaultData/PageDataType";
 import { fetchRequestTableData } from "@/lib/Redux/Slices/RequestPage/RequestTableDataSlice";
 
@@ -19,7 +16,7 @@ interface filterProp {
   typeOfFilter: PageDataType;
 }
 export default function FilterPanel(prop: filterProp) {
-  const [c_checked, setc_checked] = useState(false);
+  //const [c_checked, setc_checked] = useState(false);
 
   function btn_OpenFilterPanel() {
     // setc_checked((prv) => {
@@ -28,22 +25,23 @@ export default function FilterPanel(prop: filterProp) {
   }
 
   const filterUIDataSelect = useAppSelector(selectFilterUIDataAll);
-  const filterFinalQuerySelect = useAppSelector(selectFilterFinalDataQuery);
+  //const filterFinalQuerySelect = useAppSelector(selectFilterFinalDataQuery);
   const dispatch = useAppDispatch();
   let filterList: JSX.Element[] = [];
-  let FilterConditionString: string | null = "";
+
+  //let FilterConditionString: string | null = "";
   filterList = [];
 
   if (prop.typeOfFilter === PageDataType.IncidentData) {
     filterUIDataSelect.incidentFilterUIData?.forEach((itm, idx) => {
       filterList.push(<FilterControlRow key={idx} filterUiData={itm} />);
     });
-    FilterConditionString = filterFinalQuerySelect.incidentFilterFinalQuery;
+    //FilterConditionString = filterFinalQuerySelect.incidentFilterFinalQuery;
   } else if (prop.typeOfFilter === PageDataType.RequestData) {
     filterUIDataSelect.requestNowFilterUIData?.forEach((itm, idx) => {
       filterList.push(<FilterControlRow key={idx} filterUiData={itm} />);
     });
-    FilterConditionString = filterFinalQuerySelect.requestFilterFinalQuery;
+    //FilterConditionString = filterFinalQuerySelect.requestFilterFinalQuery;
   }
 
   if (filterList.length <= 0) {
@@ -96,56 +94,56 @@ export default function FilterPanel(prop: filterProp) {
     }, 500);
   }
 
-  const design3 = (
-    <>
-      <div className="px-2">
-        <div className="flex w-full flex-col">
-          <div className="flex flex-row justify-between py-1">
-            <div className="flex flex-row gap-2">
-              <div className="btn btn-sm" onClick={btn_OpenFilterPanel}>
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M5 10a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1ZM7 14a1 1 0 0 1 1-1h8a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1ZM9 18a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1ZM3 6a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Z"
-                    fill="#000000"
-                  />
-                </svg>
-                Filter
-              </div>
+  // const design3 = (
+  //   <>
+  //     <div className="px-2">
+  //       <div className="flex w-full flex-col">
+  //         <div className="flex flex-row justify-between py-1">
+  //           <div className="flex flex-row gap-2">
+  //             <div className="btn btn-sm" onClick={btn_OpenFilterPanel}>
+  //               <svg
+  //                 width="20"
+  //                 height="20"
+  //                 viewBox="0 0 24 24"
+  //                 fill="none"
+  //                 xmlns="http://www.w3.org/2000/svg"
+  //               >
+  //                 <path
+  //                   fillRule="evenodd"
+  //                   clipRule="evenodd"
+  //                   d="M5 10a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1ZM7 14a1 1 0 0 1 1-1h8a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1ZM9 18a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2h-4a1 1 0 0 1-1-1ZM3 6a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Z"
+  //                   fill="#000000"
+  //                 />
+  //               </svg>
+  //               Filter
+  //             </div>
 
-              <p className="self-center">{FilterConditionString}</p>
-            </div>
-            <div className="flex flex-row gap-2">
-              {/* <label htmlFor="my_modal_6" className="btn btn-sm">
-                Config
-              </label> */}
-              <ModalTableConfig pageDataLoadType={prop.typeOfFilter} />
-              {/* <BtnConfigDialogOpenButton /> */}
-            </div>
-          </div>
-          <div className="relative flex flex-col rounded-md bg-gray-100">
-            <input
-              className="peer/showLabel absolute scale-0"
-              type="checkbox"
-              checked={c_checked}
-              readOnly
-            />
+  //             <p className="self-center">{FilterConditionString}</p>
+  //           </div>
+  //           <div className="flex flex-row gap-2">
+  //             {/* <label htmlFor="my_modal_6" className="btn btn-sm">
+  //               Config
+  //             </label> */}
+  //             <ModalTableConfig pageDataLoadType={prop.typeOfFilter} />
+  //             {/* <BtnConfigDialogOpenButton /> */}
+  //           </div>
+  //         </div>
+  //         <div className="relative flex flex-col rounded-md bg-gray-100">
+  //           <input
+  //             className="peer/showLabel absolute scale-0"
+  //             type="checkbox"
+  //             checked={c_checked}
+  //             readOnly
+  //           />
 
-            <div className="relative flex max-h-0 flex-col shadow-sm transition-all duration-300 peer-checked/showLabel:max-h-96">
-              <div>asdas</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+  //           <div className="relative flex max-h-0 flex-col shadow-sm transition-all duration-300 peer-checked/showLabel:max-h-96">
+  //             <div>asdas</div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   </>
+  // );
   const design4 = (
     <>
       <div>
@@ -203,7 +201,8 @@ export default function FilterPanel(prop: filterProp) {
                 </ul>
               </div>
               <div className="flex">
-                {(filterList !== null || filterList.length > 0) && (
+                {(filterList !== null ||
+                  (filterList as JSX.Element[]).length > 0) && (
                   <>
                     <div
                       className="btn btn-info btn-sm"

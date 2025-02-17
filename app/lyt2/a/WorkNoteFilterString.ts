@@ -1,4 +1,4 @@
-import { CommentsModel } from "./CommentFilterString";
+import { CommentsModel } from "../../../lib/OtherFunctions/CommentFilterString";
 
 export function WorkNoteFilterString(worknote: string): CommentsModel[] {
   const WorknoteLists: CommentsModel[] = [];

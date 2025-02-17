@@ -54,10 +54,15 @@ export default function FilterFieldStringInput(
   }
 
   function textChanged(val: string) {
+    const st: FilterStringInput = {
+      inputValue: `"${val}"`,
+      tempVal: "",
+      name: null,
+    };
     dispatch(
       changeFilterUserInput({
         filterRow: props.filterUIData,
-        newFilterUserDataInput: { inputValue: `"${val}"`, tempVal: "" },
+        newFilterUserDataInput: st,
       }),
     );
   }

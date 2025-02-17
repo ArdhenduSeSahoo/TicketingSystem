@@ -17,7 +17,9 @@ export function ApiCall_GraphQl(query: string) {
     .then((response) => response.json())
     .catch((error) => error.json());
 }
-function isApiResponsErrorModel(object: any): object is ApiResponsErrorModel {
+function isApiResponsErrorModel(
+  object: ApiResponsModel | ApiResponsErrorModel,
+): object is ApiResponsErrorModel {
   return "errors" in object;
 }
 
@@ -28,7 +30,7 @@ export function hasGQResponseError(
 
   if (isApiResponsErrorModel(response))
     if (response?.errors) {
-      (response?.errors as Array<any>).forEach((element) => {
+      (response?.errors as Array<{ message: string }>).forEach((element) => {
         errorlist += element.message;
       });
     }
@@ -46,7 +48,7 @@ export function ApiCall_Post(Endpoint: string, query: string) {
       body: query,
     })
       .then((response) => response.json())
-      .catch((error) => error.json())
+      .catch((error) => error)
       .finally(() => "{}");
   } catch (error) {
     console.log(error);

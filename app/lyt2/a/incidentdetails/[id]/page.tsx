@@ -88,7 +88,7 @@ export default function Page({ params }: { params: { id: string } }) {
         whoSearchfor: "IncidentFirstFetch",
       }),
     );
-  }, []);
+  });
 
   return (
     <>

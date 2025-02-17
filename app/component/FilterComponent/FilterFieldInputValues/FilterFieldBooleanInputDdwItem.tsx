@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  FilterBooleanInput,
-  FilterUIData,
-} from "@/lib/Models/FilterModels/FilterModels";
+import { FilterBooleanInput } from "@/lib/Models/FilterModels/FilterModels";
 
 export interface IFilterFieldBooleanInputDdwItem {
   filterDataField: FilterBooleanInput;
@@ -14,18 +11,18 @@ export interface IFilterFieldBooleanInputDdwItem {
 export default function FilterFieldBooleanInputDdwItem(
   props: IFilterFieldBooleanInputDdwItem,
 ) {
-  function item_click() {}
-  const old_design = (
-    <li
-      onClick={item_click}
-      className="flex items-start justify-start overflow-hidden rounded-lg px-2 text-start hover:bg-gray-200"
-    >
-      {props.filterDataField.name}
-    </li>
-  );
+  // function item_click() {}
+  // const old_design = (
+  //   <li
+  //     onClick={item_click}
+  //     className="flex items-start justify-start overflow-hidden rounded-lg px-2 text-start hover:bg-gray-200"
+  //   >
+  //     {props.filterDataField.name}
+  //   </li>
+  // );
   const new_design = (
     <>
-      <option value={props.filterDataField.name}>
+      <option value={props.filterDataField.name ?? ""}>
         {props.filterDataField.name}
       </option>
     </>

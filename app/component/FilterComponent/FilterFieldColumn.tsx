@@ -62,7 +62,7 @@ export default function FilterFieldColumn(props: IFilterFieldColumnProps) {
       );
     });
   }
-  function onChangeFire(e) {
+  function onChangeFire(e: React.ChangeEvent<HTMLSelectElement>) {
     const selectedValue = e.target.value;
     console.log(selectedValue);
     for (const key in filtercolumns) {

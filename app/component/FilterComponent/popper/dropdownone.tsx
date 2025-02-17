@@ -13,7 +13,7 @@ export default function Dropdowncustom() {
         <option>Attack on Titan</option>
         <option>Bleach</option>
         <option>Fullmetal Alchemist</option>
-        <option>Jojo's Bizarre Adventure</option>
+        <option>Jojos Bizarre Adventure</option>
       </select>
     </div>
   );

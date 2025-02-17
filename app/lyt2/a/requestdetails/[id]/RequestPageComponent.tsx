@@ -2,21 +2,22 @@
 import { useAppSelectorGeneralRequest } from "@/lib/Redux/Hooks/GeneralRequestHooks";
 import { selectGeneralSearchData } from "@/lib/Redux/Selectors/CommonSelectors/GeneralRequestSelector";
 import { useState } from "react";
-import { CommentStringFilter } from "../../CommentFilterString";
+import {
+  CommentsModel,
+  CommentStringFilter,
+} from "../../../../../lib/OtherFunctions/CommentFilterString";
 import { WorkNoteFilterString } from "../../WorkNoteFilterString";
+import {
+  RequestDetailsModel,
+  RequestModel,
+} from "@/lib/Models/RequestDetailsModel";
 
-export interface IRequestPageComponentProps {
-  //firstPartData: object;
-}
-
-export default function RequestPageComponent(
-  props: IRequestPageComponentProps,
-) {
+export default function RequestPageComponent() {
   const generalSearchSelector = useAppSelectorGeneralRequest(
     selectGeneralSearchData,
   );
   const [firstFetchdata, setfirstFetchdata] = useState<
-    object | undefined | null
+    RequestModel | undefined | null
   >(undefined);
   const [firstFetchcount, setfirstFetchcount] = useState(0);
 
@@ -32,9 +33,12 @@ export default function RequestPageComponent(
       //setfirstFetchdata(geenralSearchSelector.searchData?.data?.request);
       //firstFetchDataObj = generalSearchSelector.searchData?.data?.request;
       //console.log(generalSearchSelector.searchData?.data?.request);
-      if (generalSearchSelector.searchData?.request.items.length > 0) {
+      const requestdetailsmodel =
+        generalSearchSelector.searchData as RequestDetailsModel;
+      console.log(requestdetailsmodel);
+      if (requestdetailsmodel?.request?.items.length > 0) {
         //console.log(generalSearchSelector.searchData?.request);
-        setfirstFetchdata(generalSearchSelector.searchData?.request);
+        setfirstFetchdata(requestdetailsmodel.request);
         setfirstFetchcount(1);
       }
 
@@ -106,31 +110,31 @@ export default function RequestPageComponent(
           <div className="flex flex-col items-end gap-2">
             {itemRow({
               lablename: "ID",
-              lblvalue: firstFetchdata?.items[0]?.number,
+              lblvalue: firstFetchdata?.items[0]?.number ?? "",
             })}
             {itemRow({
               lablename: "Item",
-              lblvalue: firstFetchdata?.items[0]?.item?.name,
+              lblvalue: firstFetchdata?.items[0]?.item?.name ?? "",
             })}
             {itemRow({
               lablename: "Request",
-              lblvalue: firstFetchdata?.items[0]?.requestIds,
+              lblvalue: firstFetchdata?.items[0]?.requestIds ?? "",
             })}
             {itemRow({
               lablename: "Requested for",
-              lblvalue: firstFetchdata?.items[0]?.requestedFor?.name,
+              lblvalue: firstFetchdata?.items[0]?.requestedFor?.name ?? "",
             })}
             {itemRow({
               lablename: "Location",
-              lblvalue: firstFetchdata?.items[0]?.location?.name,
+              lblvalue: firstFetchdata?.items[0]?.location?.name ?? "",
             })}
             {itemRow({
               lablename: "Business Unit",
-              lblvalue: firstFetchdata?.items[0]?.businessUnit?.name,
+              lblvalue: firstFetchdata?.items[0]?.businessUnit?.name ?? "",
             })}
             {itemRow({
               lablename: "Configuration item",
-              lblvalue: firstFetchdata?.items[0]?.configurationItem?.name,
+              lblvalue: firstFetchdata?.items[0]?.configurationItem?.name ?? "",
             })}
           </div>
           <div className="lg:w-24"></div>
@@ -138,47 +142,47 @@ export default function RequestPageComponent(
             <>
               {itemRow({
                 lablename: "Opened",
-                lblvalue: firstFetchdata?.items[0]?.opened,
+                lblvalue: firstFetchdata?.items[0]?.opened ?? "",
               })}
               {itemRow({
                 lablename: "Opened by",
-                lblvalue: firstFetchdata?.items[0]?.openedBy?.name,
+                lblvalue: firstFetchdata?.items[0]?.openedBy?.name ?? "",
               })}
               {itemRow({
                 lablename: "State",
-                lblvalue: firstFetchdata?.items[0]?.state?.name,
+                lblvalue: firstFetchdata?.items[0]?.state?.name ?? "",
               })}
               {itemRow({
                 lablename: "Stage",
-                lblvalue: firstFetchdata?.items[0]?.stage?.name,
+                lblvalue: firstFetchdata?.items[0]?.stage?.name ?? "",
               })}
               {itemRow({
                 lablename: "Assignment group",
-                lblvalue: firstFetchdata?.items[0]?.assignmentGroup?.name,
+                lblvalue: firstFetchdata?.items[0]?.assignmentGroup?.name ?? "",
               })}{" "}
               {itemRow({
                 lablename: "Assigned to",
-                lblvalue: firstFetchdata?.items[0]?.assignedTo?.name,
+                lblvalue: firstFetchdata?.items[0]?.assignedTo?.name ?? "",
               })}{" "}
               {itemRow({
                 lablename: "Impact",
-                lblvalue: firstFetchdata?.items[0]?.impact?.status,
+                lblvalue: firstFetchdata?.items[0]?.impact?.status ?? "",
               })}{" "}
               {itemRow({
                 lablename: "Urgency",
-                lblvalue: firstFetchdata?.items[0]?.urgency?.status,
+                lblvalue: firstFetchdata?.items[0]?.urgency?.status ?? "",
               })}{" "}
               {itemRow({
                 lablename: "Priority",
-                lblvalue: firstFetchdata?.items[0]?.priority?.name,
+                lblvalue: firstFetchdata?.items[0]?.priority?.name ?? "",
               })}{" "}
               {itemRow({
                 lablename: "Approval",
-                lblvalue: firstFetchdata?.items[0]?.approval?.name,
+                lblvalue: firstFetchdata?.items[0]?.approval?.name ?? "",
               })}{" "}
               {itemRow({
                 lablename: "Contact Type",
-                lblvalue: firstFetchdata?.items[0]?.contactType?.name,
+                lblvalue: firstFetchdata?.items[0]?.contactType?.name ?? "",
               })}
             </>
           </div>
@@ -200,7 +204,7 @@ export default function RequestPageComponent(
         <div className="m-2 flex border-spacing-2 flex-col gap-2">
           <label className="w-32 font-semibold">Comments:</label>
           <div className="flex flex-col gap-2 rounded-md border border-gray-700 p-2">
-            {CommentStringFilter(firstFetchdata?.items[0]?.comments).map(
+            {CommentStringFilter(firstFetchdata?.items[0]?.comments ?? "").map(
               (itm) => {
                 return userCommentDesign({
                   comments: itm,
@@ -212,13 +216,13 @@ export default function RequestPageComponent(
         <div className="m-2 flex border-spacing-2 flex-col gap-2">
           <label className="w-32 font-semibold">Work Note:</label>
           <div className="flex flex-col gap-2 rounded-md border border-gray-700 p-2">
-            {WorkNoteFilterString(firstFetchdata?.items[0]?.workNotes).map(
-              (itm) => {
-                return userCommentDesign({
-                  comments: itm,
-                });
-              },
-            )}
+            {WorkNoteFilterString(
+              firstFetchdata?.items[0]?.workNotes ?? "",
+            ).map((itm) => {
+              return userCommentDesign({
+                comments: itm,
+              });
+            })}
           </div>
         </div>
       </div>

@@ -1,21 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { CommentsModel, CommentStringFilter } from "../../CommentFilterString";
+import {
+  CommentsModel,
+  CommentStringFilter,
+} from "../../../../../lib/OtherFunctions/CommentFilterString";
 import { useAppSelectorGeneralRequest } from "@/lib/Redux/Hooks/GeneralRequestHooks";
 import { selectGeneralSearchData } from "@/lib/Redux/Selectors/CommonSelectors/GeneralRequestSelector";
 import { WorkNoteFilterString } from "../../WorkNoteFilterString";
+import {
+  Incidents,
+  IncidentsDetailsModel,
+} from "@/lib/Models/IncidentDetailsModel";
 
-export interface IIncidentPageComponentProps {}
-
-export default function IncidentPageComponent(
-  props: IIncidentPageComponentProps,
-) {
+export default function IncidentPageComponent() {
   const generalSearchSelector = useAppSelectorGeneralRequest(
     selectGeneralSearchData,
   );
   const [firstFetchdata, setfirstFetchdata] = useState<
-    object | undefined | null
+    Incidents | undefined | null
   >(undefined);
   const [firstFetchcount, setfirstFetchcount] = useState(0);
 
@@ -23,8 +26,12 @@ export default function IncidentPageComponent(
     generalSearchSelector.whoRequestingFor === "IncidentFirstFetch" &&
     firstFetchcount === 0
   ) {
-    if (generalSearchSelector.searchData?.data?.incidents.items.length > 0) {
-      setfirstFetchdata(generalSearchSelector.searchData?.data?.incidents);
+    //console.log(generalSearchSelector.searchData?.incidents?.items.length);
+    const IDetails = generalSearchSelector.searchData as IncidentsDetailsModel;
+    if (IDetails.incidents?.items.length > 0) {
+      //console.log(generalSearchSelector.searchData?.incidents);
+      setfirstFetchdata(IDetails.incidents);
+
       setfirstFetchcount(1);
     }
   }
@@ -78,39 +85,39 @@ export default function IncidentPageComponent(
           <div className="flex flex-col items-end gap-2">
             {itemRow({
               lablename: "ID",
-              lblvalue: firstFetchdata?.items[0]?.number,
+              lblvalue: firstFetchdata?.items[0]?.number ?? "",
             })}
             {itemRow({
               lablename: "Caller",
-              lblvalue: firstFetchdata?.items[0]?.caller?.name,
+              lblvalue: firstFetchdata?.items[0]?.caller?.name ?? "",
             })}
             {itemRow({
               lablename: "Location",
-              lblvalue: firstFetchdata?.items[0]?.location?.name,
+              lblvalue: firstFetchdata?.items[0]?.location?.name ?? "",
             })}
             {itemRow({
               lablename: "Owner Group",
-              lblvalue: firstFetchdata?.items[0]?.ownerGroup?.name,
+              lblvalue: firstFetchdata?.items[0]?.ownerGroup?.name ?? "",
             })}
             {itemRow({
               lablename: "Owner",
-              lblvalue: firstFetchdata?.items[0]?.owner?.name,
+              lblvalue: firstFetchdata?.items[0]?.owner?.name ?? "",
             })}
             {itemRow({
               lablename: "Operational Tier 1",
-              lblvalue: firstFetchdata?.items[0]?.operationalTier1?.name,
+              lblvalue: firstFetchdata?.items[0]?.operationalTier1?.name ?? "",
             })}
             {itemRow({
               lablename: "Operational Tier 2",
-              lblvalue: firstFetchdata?.items[0]?.operationalTier2?.name,
+              lblvalue: firstFetchdata?.items[0]?.operationalTier2?.name ?? "",
             })}
             {itemRow({
               lablename: "Service",
-              lblvalue: firstFetchdata?.items[0]?.service,
+              lblvalue: firstFetchdata?.items[0]?.service ?? "",
             })}
             {itemRow({
               lablename: "Configuration item",
-              lblvalue: firstFetchdata?.items[0]?.configurationItem?.name,
+              lblvalue: firstFetchdata?.items[0]?.configurationItem?.name ?? "",
             })}
           </div>
           <div className="lg:w-24"></div>
@@ -118,51 +125,51 @@ export default function IncidentPageComponent(
             <>
               {itemRow({
                 lablename: "Created",
-                lblvalue: firstFetchdata?.items[0]?.createdby?.name,
+                lblvalue: firstFetchdata?.items[0]?.createdby?.name ?? "",
               })}
               {itemRow({
                 lablename: "Opened by",
-                lblvalue: firstFetchdata?.items[0]?.openedby?.name,
+                lblvalue: firstFetchdata?.items[0]?.openedby?.name ?? "",
               })}
               {itemRow({
                 lablename: "Channel",
-                lblvalue: firstFetchdata?.items[0]?.channel?.name,
+                lblvalue: firstFetchdata?.items[0]?.channel?.name ?? "",
               })}
               {itemRow({
                 lablename: "State",
-                lblvalue: firstFetchdata?.items[0]?.state?.name,
+                lblvalue: firstFetchdata?.items[0]?.state?.name ?? "",
               })}
               {itemRow({
                 lablename: "On hold reason",
-                lblvalue: firstFetchdata?.items[0]?.onholdreason,
+                lblvalue: firstFetchdata?.items[0]?.onholdreason ?? "",
               })}
               {itemRow({
                 lablename: "Impact",
-                lblvalue: firstFetchdata?.items[0]?.impact?.status,
+                lblvalue: firstFetchdata?.items[0]?.impact?.status ?? "",
               })}
               {itemRow({
                 lablename: "Urgency",
-                lblvalue: firstFetchdata?.items[0]?.urgency?.status,
+                lblvalue: firstFetchdata?.items[0]?.urgency?.status ?? "",
               })}
               {itemRow({
                 lablename: "Priority",
-                lblvalue: firstFetchdata?.items[0]?.priority?.name,
+                lblvalue: firstFetchdata?.items[0]?.priority?.name ?? "",
               })}
               {itemRow({
                 lablename: "Product Tier 1",
-                lblvalue: firstFetchdata?.items[0]?.productTier1?.name,
+                lblvalue: firstFetchdata?.items[0]?.productTier1?.name ?? "",
               })}
               {itemRow({
                 lablename: "Product Tier 2",
-                lblvalue: firstFetchdata?.items[0]?.productTier2?.name,
+                lblvalue: firstFetchdata?.items[0]?.productTier2?.name ?? "",
               })}
               {itemRow({
                 lablename: "Assignment group",
-                lblvalue: firstFetchdata?.items[0]?.assignmentGroup?.name,
+                lblvalue: firstFetchdata?.items[0]?.assignmentGroup?.name ?? "",
               })}
               {itemRow({
                 lablename: "Assigned to",
-                lblvalue: firstFetchdata?.items[0]?.assignedTo?.name,
+                lblvalue: firstFetchdata?.items[0]?.assignedTo?.name ?? "",
               })}
             </>
           </div>
@@ -184,7 +191,7 @@ export default function IncidentPageComponent(
         <div className="m-2 flex border-spacing-2 flex-col gap-2">
           <label className="w-32 font-semibold">Comments:</label>
           <div className="flex flex-col gap-2 rounded-md border border-gray-700 p-2">
-            {CommentStringFilter(firstFetchdata?.items[0]?.comments).map(
+            {CommentStringFilter(firstFetchdata?.items[0]?.comments ?? "").map(
               (itm) => {
                 return userCommentDesign({
                   comments: itm,
@@ -196,27 +203,27 @@ export default function IncidentPageComponent(
         <div className="m-2 flex border-spacing-2 flex-col gap-2">
           <label className="w-32 font-semibold">Work Note:</label>
           <div className="flex flex-col gap-2 rounded-md border border-gray-700 p-2">
-            {WorkNoteFilterString(firstFetchdata?.items[0]?.worknotes).map(
-              (itm) => {
-                return userCommentDesign({
-                  comments: itm,
-                });
-                const desines = (
-                  <>
-                    {/* <div>Date:-{itm.dateTime}</div> */}
-                    <div className="border-gray-350 bordered flex min-w-72 max-w-[950px] border-spacing-3 flex-col rounded-md border bg-gray-100 px-2 text-left lg:min-w-[1100px]">
-                      <div className="flex w-full flex-row justify-between pt-2">
-                        <div className="pl-1 font-semibold">{itm.userName}</div>
-                        <div className="pr-2">{itm.dateTime}</div>
-                      </div>
-                      <div className="flex overflow-auto text-wrap p-3 text-left text-sm">
-                        {itm.commentsOfUser}
-                      </div>
-                    </div>
-                  </>
-                );
-              },
-            )}
+            {WorkNoteFilterString(
+              firstFetchdata?.items[0]?.worknotes ?? "",
+            ).map((itm) => {
+              return userCommentDesign({
+                comments: itm,
+              });
+              // const desines = (
+              //   <>
+              //     {/* <div>Date:-{itm.dateTime}</div> */}
+              //     <div className="border-gray-350 bordered flex min-w-72 max-w-[950px] border-spacing-3 flex-col rounded-md border bg-gray-100 px-2 text-left lg:min-w-[1100px]">
+              //       <div className="flex w-full flex-row justify-between pt-2">
+              //         <div className="pl-1 font-semibold">{itm.userName}</div>
+              //         <div className="pr-2">{itm.dateTime}</div>
+              //       </div>
+              //       <div className="flex overflow-auto text-wrap p-3 text-left text-sm">
+              //         {itm.commentsOfUser}
+              //       </div>
+              //     </div>
+              //   </>
+              // );
+            })}
           </div>
         </div>
       </div>

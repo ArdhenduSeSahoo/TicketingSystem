@@ -7,16 +7,37 @@ import { BaseURL } from "@/lib/DefaultData/BaseURLs";
 import StatusDetailsComponent from "./StatusDetailsComponent";
 
 export default function FileUpload() {
-  const [selectedRequestFile, setSelectedRequestFile] = useState(null);
-  const [selectedIncidentFile, setSelectedIncidentFile] = useState(null);
+  const [selectedRequestFile, setSelectedRequestFile] = useState<
+    File | undefined
+  >(undefined);
 
-  const handleRequestFileChange = (event) => {
-    setSelectedRequestFile(event.target.files[0]);
+  const [selectedIncidentFile, setSelectedIncidentFile] = useState<
+    File | undefined
+  >(undefined);
+
+  const handleRequestFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (
+      event?.target?.files?.length != undefined &&
+      event?.target?.files?.length > 0
+    ) {
+      setSelectedRequestFile(event?.target?.files[0]);
+    }
   };
-  const handleIncidentFileChange = (event) => {
-    setSelectedIncidentFile(event.target.files[0]);
+  const handleIncidentFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (
+      event?.target?.files?.length != undefined &&
+      event?.target?.files?.length > 0
+    ) {
+      setSelectedIncidentFile(event?.target?.files[0]);
+    }
   };
-  const handleSubmitRequest = async (event) => {
+  const handleSubmitRequest = async (
+    event: React.ChangeEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
 
     if (!selectedRequestFile) {
@@ -47,11 +68,13 @@ export default function FileUpload() {
         alert(response.data.error);
       }
     } catch (error) {
-      console.error("Error uploading file:", error.response.data.error);
-      alert(error.response.data.error);
+      console.error("Error uploading file:", error);
+      alert(error);
     }
   };
-  const handleSubmitIncidentFile = async (event) => {
+  const handleSubmitIncidentFile = async (
+    event: React.ChangeEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
 
     if (!selectedIncidentFile) {
@@ -82,20 +105,21 @@ export default function FileUpload() {
         alert(response.data.error);
       }
     } catch (error) {
-      console.error("Error uploading file:", error.response.data.error);
-      alert(error.response.data.error);
+      console.error("Error uploading file:", error);
+      alert(error);
     }
   };
 
-  const olddesign = (
-    <div>
-      <h2>File Upload</h2>
-      <form onSubmit={handleSubmitRequest}>
-        <input type="file" onChange={handleRequestFileChange} />
-        <button type="submit">Upload</button>
-      </form>
-    </div>
-  );
+  // const olddesign = (
+  //   <div>
+  //     <h2>File Upload</h2>
+  //     <form onSubmit={handleSubmitRequest}>
+  //       <input type="file" onChange={handleRequestFileChange} />
+  //       <button type="submit">Upload</button>
+  //     </form>
+  //   </div>
+  // );
+
   const tabnames: string[] = [
     "Incident file upload",
     "Request file upload",

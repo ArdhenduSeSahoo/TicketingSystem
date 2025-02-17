@@ -88,9 +88,7 @@ export default function ModalTableConfig(props: IModalTableConfig) {
                 <h3 className="font-bold">Table Config</h3>
                 {/* <CloseButton2 /> */}
               </div>
-              <ConfigContentComponent
-                pageDataLoadType={props.pageDataLoadType}
-              />
+              <ConfigContentComponent />
               <div className="modal-action flex items-center justify-end gap-x-2 border-t px-4 py-3">
                 {/* <CloseButton /> */}
                 <button

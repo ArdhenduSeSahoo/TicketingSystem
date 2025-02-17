@@ -98,12 +98,12 @@ export const Api_Get_Call = async (Endpoint:string,queryAsJSON: string) => {
     .catch((error) => ({ error }));
 };
 
-export function hasResponseError(response: any): string {
-  let errorlist = "";
-  if (response?.data.errors) {
-    (response?.data.errors as Array<any>).forEach((element) => {
-      errorlist += element.message;
-    });
-  }
-  return errorlist;
-}
+// export function hasResponseError(response: any): string {
+//   let errorlist = "";
+//   if (response?.data.errors) {
+//     (response?.data.errors as Array<any>).forEach((element) => {
+//       errorlist += element.message;
+//     });
+//   }
+//   return errorlist;
+// }

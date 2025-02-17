@@ -29,14 +29,14 @@ export default function FilterControlRow(props: filterProps) {
       }),
     );
   }
-  function addOrCondition() {
-    dispatch(
-      addBlankFilter({
-        filterType: props.filterUiData.filterType,
-        whereConditionType: 2,
-      }),
-    );
-  }
+  // function addOrCondition() {
+  //   dispatch(
+  //     addBlankFilter({
+  //       filterType: props.filterUiData.filterType,
+  //       whereConditionType: 2,
+  //     }),
+  //   );
+  // }
   return (
     <div>
       <div className="flex flex-row items-center gap-2">

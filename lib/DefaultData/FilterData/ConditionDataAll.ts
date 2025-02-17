@@ -21,10 +21,12 @@ export const AllBooleanDataInputs: FilterBooleanInput[] = [
   {
     name: "True",
     inputValue: "true",
+    tempbolval: "",
   },
   {
     name: "False",
     inputValue: "false",
+    tempbolval: "",
   },
 ];
 

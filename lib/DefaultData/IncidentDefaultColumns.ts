@@ -6,7 +6,18 @@ export const IncidentDefaultColumnConfig: ColumnConfig[] = [
     queryG: "number",
   },
   {
+    name: "Active",
+    queryG: "active",
+  },
+  { name: "Opened", queryG: `opened` },
+  {
     name: "Short description",
     queryG: "shortDescription",
   },
+  {
+    name: "Caller",
+    queryG: "caller{name id}",
+  },
+  { name: "Priority ", queryG: `priority {name}` },
+  { name: "State ", queryG: `state {name}` },
 ];

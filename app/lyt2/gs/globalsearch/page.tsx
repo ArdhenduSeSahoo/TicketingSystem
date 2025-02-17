@@ -3,26 +3,25 @@ import SearchResult from "./SearchResult";
 import { useAppDispatchGlobal } from "@/lib/Redux/Hooks/globalSearchHooks";
 import { fetchGlobalSearchData } from "@/lib/Redux/Slices/globlaSearchSlice/globalSearchSlices";
 import debounce from "lodash.debounce";
-import SpeechComponent from "./SpeechComponent";
-import SpeechComp2 from "./SpeechComp2";
+
 
 export default function Page() {
   const dispatch = useAppDispatchGlobal();
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     //console.log(e.target.value);
     dispatch(fetchGlobalSearchData(e.target.value));
   };
   const debouncedResults = debounce(handleChange, 800);
 
-  function btnclick() {
-    dispatch(fetchGlobalSearchData("Health"));
-  }
+  // function btnclick() {
+  //   dispatch(fetchGlobalSearchData("Health"));
+  // }
   return (
     <>
       <div className="flex flex-col overflow-y-auto">
         <div className="sticky top-0 flex w-full items-center justify-center bg-slate-200 p-3">
           <div className="flex flex-col">
-            <SpeechComp2></SpeechComp2>
+            {/* <SpeechComp2></SpeechComp2> */}
             <div className="relative">
               <div className="relative md:block">
                 <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">

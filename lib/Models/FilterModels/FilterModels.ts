@@ -78,7 +78,9 @@ export interface ICommonInput {
   name: string | null;
 }
 
-export interface FilterBooleanInput extends ICommonInput {}
+export interface FilterBooleanInput extends ICommonInput {
+  tempbolval: string;
+}
 export interface FilterStringInput extends ICommonInput {
   tempVal: string;
 }

@@ -1,5 +1,9 @@
-export const BaseURL = "http://192.168.0.79/ESNOW"; //"https://localhost:7139"; //"https://essplsnowapi.com:8091"; // //"https://192.168.7.71:8091";
+export const BaseURL = "https://ticketingsystemapi.azurewebsites.net";
+//"https://localhost:7298";
+//"https://essplsnowapi.com:8091";
+//"https://192.168.7.71:8091";
 //"https://localhost:8091";
+//"https://ticketingsystemapi.azurewebsites.net";
 //"http://192.168.0.79/ESNOW";
 //"https://192.168.29.52:8091";
 //"https://192.168.7.71:8091";

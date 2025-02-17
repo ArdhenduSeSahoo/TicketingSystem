@@ -1,6 +1,8 @@
 import { put, select, takeLatest } from "redux-saga/effects";
 import { BotListDataSlice_fetchBotGlobalSearchData } from "../SagaActionKeys";
 import {
+  api_respons_incident,
+  api_respons_request,
   GlobalSearchDataModel,
   GlobalSearchModel,
 } from "@/lib/Models/GlobalSearchModels";
@@ -47,9 +49,9 @@ function* fetchSearchData() {
       //console.log(response);
       const allDataList: GlobalSearchDataModel[] = [];
       const requestData = (response as ApiResponsModel)?.data
-        .customFilterRequest.items as object[];
+        .customFilterRequest.items as api_respons_request[];
       const incidentData = (response as ApiResponsModel)?.data
-        .customFilterIncident.items as object[];
+        .customFilterIncident.items as api_respons_incident[];
       //console.log(incidentData);
       incidentData.forEach((element) => {
         allDataList.push({
@@ -67,8 +69,8 @@ function* fetchSearchData() {
           description: element.description,
         });
       });
-      //console.log(allDataList);
-      //console.log("put in if");
+      // console.log(allDataList);
+      // console.log("put in if");
       yield put(
         fetchCompleteBotGlobalSearchData({
           errorMessage: "",

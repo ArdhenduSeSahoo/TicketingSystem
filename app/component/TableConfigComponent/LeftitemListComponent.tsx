@@ -1,5 +1,5 @@
 "use client";
-import { PageDataType } from "@/lib/DefaultData/PageDataType";
+
 import LeftItem from "./LeftItemsComponent";
 import { ColumnConfig } from "@/lib/Models/ColumnConfigModel";
 import { useAppSelector } from "@/lib/Redux/Hooks/HomePageHook";
@@ -8,10 +8,10 @@ import {
   selectLeftSelectedItem,
 } from "@/lib/Redux/Selectors/CommonSelectors/FilterSelectors";
 
-interface ILeftItemListComponent {
-  pageDataLoadType: PageDataType;
-}
-export default function LeftItemListComponent(props: ILeftItemListComponent) {
+// interface ILeftItemListComponent {
+//   pageDataLoadType: PageDataType;
+// }
+export default function LeftItemListComponent() {
   const allItemListSelectedItems = useAppSelector(selectAllItemList);
   const leftSelectedItems = useAppSelector(selectLeftSelectedItem);
   const itemlist = allItemListSelectedItems.map(

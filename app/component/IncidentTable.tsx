@@ -1,6 +1,7 @@
 "use client";
 import { IncidentDefaultColumnConfig } from "@/lib/DefaultData/IncidentDefaultColumns";
 import { PageDataType } from "@/lib/DefaultData/PageDataType";
+import { RequestsDefaultColumnConfig } from "@/lib/DefaultData/Requests/RequestDefaultColumns";
 import { ColumnConfig } from "@/lib/Models/ColumnConfigModel";
 import {
   TableDataList,
@@ -40,7 +41,7 @@ export default function IncidentTable(props: ITableConfig) {
     return (
       <>
         <td>
-          <div className="flex max-h-36 justify-center overflow-x-auto text-center">
+          <div className="flex max-h-36 justify-start overflow-x-auto text-left">
             <div>{pro.cellValue}</div>
           </div>
         </td>
@@ -64,7 +65,7 @@ export default function IncidentTable(props: ITableConfig) {
   } else if (props.pageDataType === PageDataType.RequestData) {
     let requestColumnList = ColumnsDataList.requestColumnList.columnConfigList;
     if (requestColumnList.length === 0) {
-      requestColumnList = IncidentDefaultColumnConfig;
+      requestColumnList = RequestsDefaultColumnConfig;
     }
     selectedColumnHeaders = requestColumnList;
     headerColumnList = requestColumnList.map(
@@ -147,7 +148,7 @@ export default function IncidentTable(props: ITableConfig) {
     } else {
       tableDataList.dataList?.items.forEach((itm, index) => {
         const cellData = [];
-        let keyval = 1;
+        //let keyval = 1;
         for (const [dkey, value] of Object.entries(itm)) {
           if (typeof value === "object") {
             //get First data of Object and add to cell.
@@ -155,8 +156,9 @@ export default function IncidentTable(props: ITableConfig) {
             let has_sub_data = false;
             if (value != null && value != undefined) {
               for (const [skey, svalue] of Object.entries(value)) {
+                console.log(skey);
                 cellData.push(dataCellDesign({ cellValue: String(svalue) }));
-                keyval++;
+                //keyval++;
                 has_sub_data = true;
                 break;
               }
@@ -167,7 +169,7 @@ export default function IncidentTable(props: ITableConfig) {
           } else {
             if (dkey === "number") {
               cellData.push(
-                <td className="pl-1">
+                <td className="pl-1 pr-2">
                   <Link
                     href={{
                       pathname: `${detailsPageURl}/${value}`,
@@ -184,10 +186,10 @@ export default function IncidentTable(props: ITableConfig) {
               cellData.push(dataCellDesign({ cellValue: String(value) }));
             }
 
-            keyval++;
+            //keyval++;
           }
         }
-        keyval = 1;
+        //keyval = 1;
         DataItems.push(
           <tr
             key={index}

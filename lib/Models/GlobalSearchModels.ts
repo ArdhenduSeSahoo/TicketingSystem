@@ -11,3 +11,16 @@ export interface GlobalSearchModel {
   isLoading: boolean;
   errorMessage: string;
 }
+
+export interface api_respons_request {
+  number: string;
+  item: {
+    name: string;
+  };
+  description: string;
+}
+export interface api_respons_incident {
+  number: string;
+  shortDescription: string;
+  description: string;
+}

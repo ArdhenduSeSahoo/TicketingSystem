@@ -11,7 +11,7 @@ export default function SearchBoxComponent() {
   // const [FilteredData, setFilteredData] = useState<searchItemData[]>([]);
   // let listToDisplay = fruits;
   // let startedSearch = false;
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     //console.log(e.target.value);
     dispatch(fetchSearchData(e.target.value));
   };
@@ -74,7 +74,7 @@ export default function SearchBoxComponent() {
             type="text"
             id="search-navbar"
             className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 md:w-72"
-            placeholder="Search on large..."
+            placeholder="Quick Search......"
             onChange={debouncedResults}
           />
         </div>

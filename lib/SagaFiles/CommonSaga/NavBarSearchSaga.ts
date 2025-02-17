@@ -12,6 +12,10 @@ import {
   ApiResponsErrorModel,
   ApiResponsModel,
 } from "@/lib/Models/ApiResponsModel";
+import {
+  api_respons_incident,
+  api_respons_request,
+} from "@/lib/Models/GlobalSearchModels";
 
 function* fetchSearchData() {
   const navSearchData: NavBarSearchModel = yield select(selectNavBarSearchData);
@@ -36,42 +40,42 @@ function* fetchSearchData() {
   }
 }`;
 
-  const queryg = `query {
-   request(
-    where: {
-      or: {
-        commentsAndWorkNotes: { contains: "${navSearchData.searchString}" }
-        description: { contains: "${navSearchData.searchString}" }
-        shortDescription: { contains: "${navSearchData.searchString}" }
-      }
-    }
-    skip: 0
-    take: 10
-    order: { id: DESC }
-  ) {
-    items {
-      number
-      shortDescription
-    }
-  }
-  incidents(
-    order: { id: DESC }
-    skip: 0
-    take: 10
-    where: {
-      or: {
-        commentsWorknotes: { contains: "${navSearchData.searchString}" }
-        description: { contains: "${navSearchData.searchString}" }
-        shortDescription: { contains: "${navSearchData.searchString}" }
-      }
-    }
-  ) {
-    items {
-      number
-      shortDescription
-    }
-  }
-}`;
+  //   const queryg = `query {
+  //    request(
+  //     where: {
+  //       or: {
+  //         commentsAndWorkNotes: { contains: "${navSearchData.searchString}" }
+  //         description: { contains: "${navSearchData.searchString}" }
+  //         shortDescription: { contains: "${navSearchData.searchString}" }
+  //       }
+  //     }
+  //     skip: 0
+  //     take: 10
+  //     order: { id: DESC }
+  //   ) {
+  //     items {
+  //       number
+  //       shortDescription
+  //     }
+  //   }
+  //   incidents(
+  //     order: { id: DESC }
+  //     skip: 0
+  //     take: 10
+  //     where: {
+  //       or: {
+  //         commentsWorknotes: { contains: "${navSearchData.searchString}" }
+  //         description: { contains: "${navSearchData.searchString}" }
+  //         shortDescription: { contains: "${navSearchData.searchString}" }
+  //       }
+  //     }
+  //   ) {
+  //     items {
+  //       number
+  //       shortDescription
+  //     }
+  //   }
+  // }`;
   if (navSearchData.searchString !== "") {
     // const { response } = yield call(AxiosGraphQlPostCall, queryg1);
     // const errorMessage = hasResponseError(response);
@@ -81,9 +85,9 @@ function* fetchSearchData() {
     if (errorMessage === "") {
       const allDataList: SearchDataModel[] = [];
       const requestData = (response as ApiResponsModel)?.data
-        ?.customFilterRequest.items as object[];
+        ?.customFilterRequest.items as api_respons_request[];
       const incidentData = (response as ApiResponsModel)?.data
-        ?.customFilterIncident.items as object[];
+        ?.customFilterIncident.items as api_respons_incident[];
       //console.log(incidentData);
       incidentData.forEach((element) => {
         allDataList.push({
