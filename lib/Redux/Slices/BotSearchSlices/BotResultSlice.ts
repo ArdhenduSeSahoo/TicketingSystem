@@ -34,8 +34,7 @@ const BotResultSlice = createSlice({
         state.botShowAllQuery=action.payload.botShowAllQuery;
         state.errorMessage=action.payload.errorMessage;
         state.hasError=action.payload.hasError;
-        state.isLoading=false;
-        
+        state.isLoading = false;
     },
     
   },

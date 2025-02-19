@@ -11,7 +11,7 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        "custom-logo_background": "#2b4a63",
+        "custom-logo_background": "#0d64aa3b", //"#2b4a63",
       },
     },
   },

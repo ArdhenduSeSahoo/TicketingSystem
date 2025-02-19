@@ -1,11 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import ChartCard from "./componnent/ChartCard";
-
+import ChartCardOne from "./componnent/ChartCardOne";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import ChartCardTwo from "./componnent/ChartCardTwo";
+import ChartCardThree from "./componnent/ChartCardThree";
+import ChartCardFour from "./componnent/ChartCardFour";
 export default function DashBoard() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       setVisible(false);
@@ -22,7 +24,7 @@ export default function DashBoard() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-custom-logo_background absolute z-50 flex h-screen w-screen flex-col items-center justify-center bg-opacity-70"
+                className="absolute z-50 flex h-screen w-screen flex-col items-center justify-center bg-custom-logo_background bg-opacity-70"
               >
                 <div className="flex">
                   <Image
@@ -37,10 +39,25 @@ export default function DashBoard() {
             )}
           </AnimatePresence>
         )}
-        <div className="grid grid-flow-row grid-cols-1 gap-2 p-2 lg:grid-flow-col">
-          <ChartCard />
-          <ChartCard />
-          <ChartCard />
+        <div className="grid grid-cols-1">
+          <div className="col-start-1 row-start-1 flex gap-2 rounded-lg px-2 pt-2">
+            <div className="bg-linear-to-bl flex grow items-start justify-start overflow-auto rounded-lg from-violet-500 to-fuchsia-500 shadow-lg">
+              <ChartCardOne />
+            </div>
+            <div className="bg-linear-to-bl flex grow items-start justify-start overflow-auto rounded-lg from-violet-500 to-fuchsia-500 shadow-lg">
+              <ChartCardTwo />
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-1">
+          <div className="col-start-1 row-start-1 flex gap-2 rounded-lg px-2 pt-2">
+            <div className="bg-linear-to-bl flex grow items-start justify-start overflow-auto rounded-lg from-violet-500 to-fuchsia-500 shadow-lg">
+              <ChartCardThree />
+            </div>
+            <div className="bg-linear-to-bl flex grow items-start justify-start overflow-auto rounded-lg from-violet-500 to-fuchsia-500 shadow-lg">
+              <ChartCardFour />
+            </div>
+          </div>
         </div>
       </div>
     </div>

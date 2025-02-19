@@ -40,3 +40,13 @@ export const BotResultData_fetchingBotGlobalSearch =
 export const BotListDataSlice_fetchBotGlobalSearchData =
   "BotListDataSlice/fetchBotGlobalSearchData";
 
+//////////////////////////////////////////////////////////
+export const DashboardDataSlice_fetchDataChart_One =
+  "DashboardDataSlice/fetchDataChart_One";
+export const DashboardDataSlice_fetchDataChart_Two =
+  "DashboardDataSlice/fetchDataChart_Two";
+export const DashboardDataSlice_fetchDataChart_Three =
+  "DashboardDataSlice/fetchDataChart_Three";
+  export const DashboardDataSlice_fetchDataChart_Four =
+    "DashboardDataSlice/fetchDataChart_Four";
+

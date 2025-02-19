@@ -2,86 +2,82 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import { BotResultChartDataModel } from "@/lib/Models/BotModels/BotModels";
 const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
+export interface IDChartUI {
+  ChartDataSet: BotResultChartDataModel | null;
+}
 
-export default function DChartUI() {
-  const [state, setState] = useState({
-    series: [
-      {
-        name: "XYZ MOTORS",
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
-      },
-    ],
+export default function DChartUI(props: IDChartUI) {
+  const x_axis_data: string[] = [];
+  const y_axis_data: number[] = [];
+
+  if (props.ChartDataSet != null || props.ChartDataSet != undefined) {
+    const chardataapi = props.ChartDataSet?.chartDataSet;
+    //console.log(chardataapi);
+    for (let index = 0; index <= chardataapi.length; index++) {
+      //chardataapi[index].label;
+      //chardataapi[index].y
+      if (
+        chardataapi[index]?.label != null &&
+        chardataapi[index]?.label != "NA"
+      ) {
+        x_axis_data.push(chardataapi[index]?.label ?? "NA");
+        y_axis_data.push(chardataapi[index]?.y ?? 0);
+      }
+
+      // datasets.push({
+      //   label: chardataapi[index].label,
+      //   y: chardataapi[index].y,
+      // });
+    }
+  }
+
+  const chartdata2 = {
     options: {
       chart: {
-        type: "area",
-        stacked: false,
-        height: 350,
-        // zoom: {
-        //   type: "x",
-        //   enabled: true,
-        //   autoScaleYaxis: true,
-        // },
-        toolbar: {
-          autoSelected: "zoom",
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      markers: {
-        size: 0,
-      },
-      title: {
-        text: "Stock Price Movement",
-        align: "left",
-      },
-      fill: {
-        type: "gradient",
-        gradient: {
-          shadeIntensity: 1,
-          inverseColors: false,
-          opacityFrom: 0.5,
-          opacityTo: 0,
-          stops: [0, 90, 100],
-        },
-      },
-      yaxis: {
-        labels: {},
-        title: {
-          text: "Price",
-        },
+        id: "ticketcount",
       },
       xaxis: {
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-        ],
+        name: props.ChartDataSet?.x_axis_lable ?? "",
+        labels: {
+          show: true,
+          rotate: -45,
+          rotateAlways: false,
+        },
+        title: {
+          text: props.ChartDataSet?.x_axis_lable ?? "",
+        },
+        categories: x_axis_data,
       },
-      tooltip: {
-        shared: false,
-        y: {},
+      yaxis: {
+        title: {
+          text: props.ChartDataSet?.y_axis_lable ?? "",
+        },
       },
     },
-  });
+    series: [
+      {
+        name: props.ChartDataSet?.y_axis_lable ?? "",
+        data: y_axis_data,
+      },
+    ],
+  };
+  let chart_width = 700;
+  if (chartdata2.options.xaxis.categories.length > 15) {
+    chart_width = chartdata2.options.xaxis.categories.length * 30;
+  }
 
   return (
     <div>
-      <div>
+      <div className="flex">
         <div id="chart">
           <ApexChart
             type="area"
-            options={state.options}
-            series={state.series}
-            // width={chart_width}
+            options={chartdata2.options}
+            series={chartdata2.series}
+            width={chart_width}
             height={320}
           />
         </div>

@@ -30,10 +30,10 @@ function* fetchBotResultFromQuery() {
       EndPoint_Azure_Prediction,
       request_body,
     );
-    console.log(response);
+    //console.log(response);
     const botrespons: BotResultDataResponsModel =
       response as BotResultDataResponsModel;
-    console.log(botrespons);
+    //console.log(botrespons);
     if (botrespons !== undefined) {
       yield put(
         fetchDataFromQueryComplete({
