@@ -1,4 +1,4 @@
-export const BaseURL = "https://localhost:7298";
+export const BaseURL = "https://ticketingsystemapi.azurewebsites.net";
 //"https://localhost:7298";
 //"https://essplsnowapi.com:8091";
 //"https://192.168.7.71:8091";
